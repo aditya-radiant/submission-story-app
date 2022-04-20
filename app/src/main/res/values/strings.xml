@@ -4,5 +4,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="fill_the_email">Fill the email!!</string>
+    <string name="pw_lg_minimum">Password minimum 6 characters</string>
 
 </resources>

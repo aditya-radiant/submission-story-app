@@ -5,8 +5,11 @@
       <map>
         <entry key="..\:/Kuliah/00. Materi Bangkit/003.IntermediateAndroiud/Submission 1/1/app/src/main/res/drawable-v24/ic_baseline_email_24.xml" value="0.149" />
         <entry key="..\:/Kuliah/00. Materi Bangkit/003.IntermediateAndroiud/Submission 1/1/app/src/main/res/drawable-v24/ic_baseline_lock_24.xml" value="0.149" />
+        <entry key="..\:/Kuliah/00. Materi Bangkit/003.IntermediateAndroiud/Submission 1/1/app/src/main/res/drawable-v24/prog_bar.xml" value="0.174" />
         <entry key="..\:/Kuliah/00. Materi Bangkit/003.IntermediateAndroiud/Submission 1/1/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Kuliah/00. Materi Bangkit/003.IntermediateAndroiud/Submission 1/1/app/src/main/res/layout/activity_main.xml" value="0.228125" />
+        <entry key="..\:/Kuliah/00. Materi Bangkit/003.IntermediateAndroiud/Submission 1/1/app/src/main/res/layout/activity_sign_up.xml" value="0.18177083333333333" />
+        <entry key="..\:/Kuliah/00. Materi Bangkit/003.IntermediateAndroiud/Submission 1/1/app/src/main/res/layout/activity_story.xml" value="0.18177083333333333" />
       </map>
     </option>
   </component>
