@@ -21,7 +21,9 @@ import com.dicoding.picodiploma.submission_story_app.ui.story.StoryActivity
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
+    private val binding: ActivityLoginBinding by lazy {
+        ActivityLoginBinding.inflate(layoutInflater)
+    }
 
     private val loginViewModel: LoginViewModel by viewModels {
         ViewModelFactory.getInstance(
