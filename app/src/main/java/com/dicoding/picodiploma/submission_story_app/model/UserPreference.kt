@@ -10,48 +10,60 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 
-class LoginPreferences private constructor(private val dataStore: DataStore<Preferences>) {
+class UserPreferences private constructor(private val dataStore: DataStore<Preferences>) {
 
-    private val token = stringPreferencesKey("token")
-    private val firstTime = booleanPreferencesKey("first_time")
-
-    fun getToken(): Flow<String> {
+    fun getUser(): Flow<UserModel> {
         return dataStore.data.map {
-            it[token] ?: "null"
+            UserModel(
+                it[NAME_KEY] ?: "",
+                it[EMAIL_KEY] ?: "",
+                it[PASSWORD_KEY] ?: "",
+                it[USERID_KEY] ?: "",
+                it[TOKEN_KEY] ?: "",
+                it[STATE_KEY] ?: false
+            )
         }
     }
 
-    fun isFirstTime(): Flow<Boolean> {
-        return dataStore.data.map {
-            it[firstTime] ?: true
-        }
-    }
-
-    suspend fun saveToken(token: String) {
+    suspend fun saveUser(user: UserModel) {
         dataStore.edit {
-            it[this.token] = token
+            it[NAME_KEY] = user.name
+            it[EMAIL_KEY] = user.email
+            it[PASSWORD_KEY] = user.password
+            it[USERID_KEY] = user.userId
+            it[TOKEN_KEY] = user.token
+            it[STATE_KEY] = user.isLogin
         }
     }
 
-    suspend fun setFirstTime(firstTime: Boolean) {
+    suspend fun logout() {
         dataStore.edit {
-            it[this.firstTime] = firstTime
-        }
-    }
-
-    suspend fun deleteToken() {
-        dataStore.edit {
-            it[token] = "null"
+            it[STATE_KEY] = false
+            it[NAME_KEY] = ""
+            it[EMAIL_KEY] = ""
+            it[USERID_KEY] = ""
+            it[TOKEN_KEY] = ""
+            it[PASSWORD_KEY] = ""
         }
     }
 
     companion object {
         @Volatile
-        private var instance: LoginPreferences? = null
+        private var INSTANCE: UserPreferences? = null
 
-        fun getInstance(dataStore: DataStore<Preferences>): LoginPreferences =
-            instance ?: synchronized(this) {
-                instance ?: LoginPreferences(dataStore)
-            }.also { instance = it }
+        private val NAME_KEY = stringPreferencesKey("name")
+        private val EMAIL_KEY = stringPreferencesKey("email")
+        private val PASSWORD_KEY = stringPreferencesKey("password")
+        private val USERID_KEY = stringPreferencesKey("userId")
+        private val TOKEN_KEY = stringPreferencesKey("token")
+        private val STATE_KEY = booleanPreferencesKey("state")
+
+        fun getInstance(dataStore: DataStore<Preferences>): UserPreferences {
+            return INSTANCE ?: synchronized(this) {
+                val instance = UserPreferences(dataStore)
+                INSTANCE = instance
+                instance
+            }
+        }
     }
 }

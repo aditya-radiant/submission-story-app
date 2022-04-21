@@ -4,87 +4,93 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.os.PersistableBundle
+import android.provider.Settings
+
 import android.view.View
-import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.ThemedSpinnerAdapter
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivityLoginBinding
-import com.dicoding.picodiploma.submission_story_app.model.LoginPreferences
+import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
+import com.dicoding.picodiploma.submission_story_app.ui.Helper
+import com.dicoding.picodiploma.submission_story_app.ui.Helper.isEmailValid
 import com.dicoding.picodiploma.submission_story_app.ui.ViewModelFactory
-import com.dicoding.picodiploma.submission_story_app.data.Result
-import com.dicoding.picodiploma.submission_story_app.ui.signup.SignUpActivity
 import com.dicoding.picodiploma.submission_story_app.ui.story.StoryActivity
+
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
 class LoginActivity : AppCompatActivity() {
-    private val binding: ActivityLoginBinding by lazy {
-        ActivityLoginBinding.inflate(layoutInflater)
-    }
+    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var binding: ActivityLoginBinding
 
-    private val loginViewModel: LoginViewModel by viewModels {
-        ViewModelFactory.getInstance(
-            LoginPreferences.getInstance(dataStore)
-        )
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setupView()
-    }
-
-    private fun setupView() {
         supportActionBar?.title = getString(R.string.login)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        binding.loginButton.setOnClickListener {
-            if (!binding.emailEditText.text.isNullOrEmpty() && !binding.passwordEditText.text.isNullOrEmpty()) {
-                val email = binding.emailEditText.text.toString()
-                val password = binding.passwordEditText.text.toString()
-                val result = loginViewModel.login(email, password)
+        setupViewModel()
+        buttonListener()
+    }
 
-                result.observe(this) {
-                    when (it) {
-                        is Result.Loading -> {
-                            binding.progressBar.visibility = View.VISIBLE
-                        }
+    private fun setupViewModel() {
+        loginViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(UserPreferences.getInstance(dataStore))
+        )[LoginViewModel::class.java]
+    }
 
-                        is Result.Error -> {
-                            binding.progressBar.visibility = View.INVISIBLE
-                            val error = it.error
-                            Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
-                        }
-
-                        is Result.Success -> {
-                            binding.progressBar.visibility = View.INVISIBLE
-                            val data = it.data
-                            loginViewModel.saveToken(data.loginResult.token)
-                            Log.d("LoginActivity", "Token: ${data.loginResult.token}")
-                            val intent = Intent(this, StoryActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                    }
+    private fun showAlertDialog(param: Boolean, message: String) {
+        if (param) {
+            AlertDialog.Builder(this).apply {
+                setTitle(getString(R.string.information))
+                setMessage(getString(R.string.login_success))
+                setPositiveButton(getString(R.string.continue_)) { _, _ ->
+                    val intent = Intent(context, StoryActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish()
                 }
-            } else {
-                binding.emailEditText.error = resources.getString(R.string.fill_the_email)
-
-                if (binding.passwordEditText.text.isNullOrEmpty()) {
-                    binding.passwordEditText.error =
-                        resources.getString(R.string.pw_lg_minimum)
+                create()
+                show()
+            }
+        } else {
+            AlertDialog.Builder(this).apply {
+                setTitle(getString(R.string.information))
+                setMessage(getString(R.string.sign_in_failed) +", $message")
+                setPositiveButton(getString(R.string.continue_)) { _, _ ->
+                    binding.progressBar.visibility = View.GONE
                 }
+                create()
+                show()
+
             }
         }
+    }
 
-        binding.signUp.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+    private fun buttonListener() {
+        binding.loginButton.setOnClickListener {
+            val email = binding.emailEditText.text.toString()
+            val pass = binding.passwordEditText.text.toString()
+
+            loginViewModel.login(email, pass, object : Helper.ApiCallbackString {
+                override fun onResponse(success: Boolean,message: String) {
+                    showAlertDialog(success, message)
+                }
+            })
         }
+
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
 }
