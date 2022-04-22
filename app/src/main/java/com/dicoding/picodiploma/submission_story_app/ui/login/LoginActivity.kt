@@ -5,11 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.provider.Settings
-
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.ThemedSpinnerAdapter
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -18,7 +15,6 @@ import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivityLoginBinding
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.Helper
-import com.dicoding.picodiploma.submission_story_app.ui.Helper.isEmailValid
 import com.dicoding.picodiploma.submission_story_app.ui.ViewModelFactory
 import com.dicoding.picodiploma.submission_story_app.ui.story.StoryActivity
 
@@ -34,10 +30,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.title = getString(R.string.login)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        loginViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
 
         setupViewModel()
         buttonListener()
+        showLoading(true)
     }
 
     private fun setupViewModel() {
@@ -64,9 +64,9 @@ class LoginActivity : AppCompatActivity() {
         } else {
             AlertDialog.Builder(this).apply {
                 setTitle(getString(R.string.information))
-                setMessage(getString(R.string.sign_in_failed) +", $message")
+                setMessage(getString(R.string.login_failed) +", $message")
                 setPositiveButton(getString(R.string.continue_)) { _, _ ->
-                    binding.progressBar.visibility = View.GONE
+                    showLoading(false)
                 }
                 create()
                 show()

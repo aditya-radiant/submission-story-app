@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.story.StoryActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="113dp"
+        android:layout_height="130dp"
+        app:srcCompat="@drawable/ic_setting"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="236dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,9 +3,7 @@ package com.dicoding.picodiploma.submission_story_app.ui.login
 import android.util.Log
 import androidx.lifecycle.*
 import com.dicoding.picodiploma.submission_story_app.data.api.ApiConfig
-import com.dicoding.picodiploma.submission_story_app.data.repository.UserRepository
 import com.dicoding.picodiploma.submission_story_app.data.response.LoginResponse
-import com.dicoding.picodiploma.submission_story_app.model.LoginPreferences
 import com.dicoding.picodiploma.submission_story_app.model.UserModel
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.Helper
@@ -77,4 +75,3 @@ class LoginViewModel(private val userPreferences: UserPreferences): ViewModel() 
     }
 }
 
-}

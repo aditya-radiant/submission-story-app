@@ -8,5 +8,10 @@
     <string name="pw_lg_minimum">Password minimum 6 characters</string>
     <string name="locale">Local</string>
     <string name="login_success">Login Success</string>
+    <string name="information">information</string>
+    <string name="continue_">continue</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="story">Story</string>
+    <string name="sign_up">Sign Up</string>
 
 </resources>
