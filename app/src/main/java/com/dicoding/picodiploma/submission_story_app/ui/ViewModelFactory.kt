@@ -6,14 +6,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.login.LoginViewModel
 import com.dicoding.picodiploma.submission_story_app.ui.story.StoryViewModel
+import com.dicoding.picodiploma.submission_story_app.ui.welcome.WelcomeViewModel
 
 class ViewModelFactory(private val userPreferences: UserPreferences) : ViewModelProvider.NewInstanceFactory()
 {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(StoryViewModel::class.java) -> {
-                StoryViewModel(userPreferences) as T
+            modelClass.isAssignableFrom(WelcomeViewModel::class.java) -> {
+                WelcomeViewModel(userPreferences) as T
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(userPreferences) as T

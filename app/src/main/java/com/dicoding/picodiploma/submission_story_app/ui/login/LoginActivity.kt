@@ -2,11 +2,13 @@ package com.dicoding.picodiploma.submission_story_app.ui.login
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -16,28 +18,46 @@ import com.dicoding.picodiploma.submission_story_app.databinding.ActivityLoginBi
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.Helper
 import com.dicoding.picodiploma.submission_story_app.ui.ViewModelFactory
+import com.dicoding.picodiploma.submission_story_app.ui.signup.SignUpActivity
 import com.dicoding.picodiploma.submission_story_app.ui.story.StoryActivity
 
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
 class LoginActivity : AppCompatActivity() {
+    private val binding: ActivityLoginBinding by lazy {
+        ActivityLoginBinding.inflate(layoutInflater)
+    }
     private lateinit var loginViewModel: LoginViewModel
-    private lateinit var binding: ActivityLoginBinding
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         supportActionBar?.title = getString(R.string.login)
+
+        setupViewModel()
 
         loginViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-        setupViewModel()
+
         buttonListener()
-        showLoading(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_bar, menu)
+        val item = menu.findItem(R.id.logout)
+        item.isVisible = false
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.settings) {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupViewModel() {
@@ -85,6 +105,11 @@ class LoginActivity : AppCompatActivity() {
                     showAlertDialog(success, message)
                 }
             })
+        }
+
+        binding.signUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
         }
 
     }
