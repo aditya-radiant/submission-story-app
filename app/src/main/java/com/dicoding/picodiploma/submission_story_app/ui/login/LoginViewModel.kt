@@ -69,6 +69,16 @@ class LoginViewModel(private val userPreferences: UserPreferences): ViewModel() 
         }
     }
 
+    fun getUser(): LiveData<UserModel> {
+        return userPreferences.getUser().asLiveData()
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            userPreferences.logout()
+        }
+    }
+
     companion object {
         private const val TAG = "SignInViewModel"
         private const val SUCCESS = "success"

@@ -45,6 +45,22 @@ class LoginActivity : AppCompatActivity() {
         buttonListener()
     }
 
+    override fun onResume() {
+        super.onResume()
+        initialCheck()
+    }
+
+    private fun initialCheck(){
+        loginViewModel.getUser().observe(this) {
+            if (it.isLogin) {
+                val intent = Intent(this, StoryActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_bar, menu)
         val item = menu.findItem(R.id.logout)

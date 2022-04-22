@@ -15,7 +15,8 @@ import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivityStoryBinding
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.ViewModelFactory
-import com.dicoding.picodiploma.submission_story_app.ui.welcome.WelcomeViewModel
+import com.dicoding.picodiploma.submission_story_app.ui.login.LoginActivity
+import com.dicoding.picodiploma.submission_story_app.ui.login.LoginViewModel
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
 class StoryActivity : AppCompatActivity() {
@@ -37,17 +38,17 @@ class StoryActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val welcomeViewModel = ViewModelProvider(
+        val loginViewModel = ViewModelProvider(
             this,
             ViewModelFactory(UserPreferences.getInstance(dataStore))
-
-        )[WelcomeViewModel::class.java]
+        )[LoginViewModel::class.java]
 
         if (item.itemId == R.id.settings) {
             startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }else if (item.itemId == R.id.logout) {
-            /*welcomeViewModel.logout()
-            finish()*/
+            loginViewModel.logout()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
 
         return super.onOptionsItemSelected(item)

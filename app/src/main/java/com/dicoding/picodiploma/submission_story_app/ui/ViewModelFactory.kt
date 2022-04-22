@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.login.LoginViewModel
-import com.dicoding.picodiploma.submission_story_app.ui.story.StoryViewModel
-import com.dicoding.picodiploma.submission_story_app.ui.welcome.WelcomeViewModel
 
 class ViewModelFactory(private val userPreferences: UserPreferences) : ViewModelProvider.NewInstanceFactory()
 {
