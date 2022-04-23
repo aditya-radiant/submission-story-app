@@ -7,11 +7,11 @@ import com.dicoding.picodiploma.submission_story_app.R
 
 
 
-class WelcomeActivity : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_welcome)
+        setContentView(R.layout.activity_slashscreen)
         supportActionBar?.hide()
 
     }

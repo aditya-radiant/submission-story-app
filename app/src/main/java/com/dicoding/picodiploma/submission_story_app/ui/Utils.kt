@@ -118,11 +118,21 @@ object Helper {
         fun onResponse(success: Boolean, message: String)
     }
 
-    fun formatDate(currentDateString: String, targetTimeZone: String): String {
-        val instant = Instant.parse(currentDateString)
-        val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy | HH:mm")
-            .withZone(ZoneId.of(targetTimeZone))
-        return formatter.format(instant)
-    }
 
+}
+
+open class Event<out T>(private val content: T) {
+
+    @Suppress("MemberVisibilityCanBePrivate")
+    var hasBeenHandled = false
+        private set
+
+    fun getContentIfNotHandled(): T? {
+        return if (hasBeenHandled) {
+            null
+        } else {
+            hasBeenHandled = true
+            content
+        }
+    }
 }

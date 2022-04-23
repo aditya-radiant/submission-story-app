@@ -10,6 +10,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivitySignUpBinding
+import com.dicoding.picodiploma.submission_story_app.model.UserModel
 import com.dicoding.picodiploma.submission_story_app.ui.Helper
 import com.dicoding.picodiploma.submission_story_app.ui.login.LoginActivity
 
@@ -40,6 +41,7 @@ class SignUpActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_bar, menu)
         val item = menu.findItem(R.id.logout)
         item.isVisible = false
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         return super.onCreateOptionsMenu(menu)
     }

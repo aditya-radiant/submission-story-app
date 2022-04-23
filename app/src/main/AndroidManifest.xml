@@ -12,12 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Submissionstoryapp">
         <activity
+            android:name=".ui.detail.DetailStoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="true" />
         <activity
             android:name=".ui.story.StoryActivity"
             android:exported="false"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".ui.signup.SignUpActivity"
             android:exported="false" />
@@ -31,7 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

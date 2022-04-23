@@ -15,6 +15,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivityLoginBinding
+import com.dicoding.picodiploma.submission_story_app.model.UserModel
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.Helper
 import com.dicoding.picodiploma.submission_story_app.ui.ViewModelFactory
@@ -27,6 +28,9 @@ class LoginActivity : AppCompatActivity() {
     private val binding: ActivityLoginBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
+
+    private lateinit var user: UserModel
+
     private lateinit var loginViewModel: LoginViewModel
 
 
@@ -48,17 +52,28 @@ class LoginActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         initialCheck()
+
     }
 
-    private fun initialCheck(){
+
+    private fun initialCheck() {
         loginViewModel.getUser().observe(this) {
+            user = UserModel(
+                it.name,
+                it.email,
+                it.password,
+                it.userId,
+                it.token,
+                true
+            )
+
             if (it.isLogin) {
                 val intent = Intent(this, StoryActivity::class.java)
+                intent.putExtra(StoryActivity.USER_DATA, user)
                 startActivity(intent)
                 finish()
             }
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

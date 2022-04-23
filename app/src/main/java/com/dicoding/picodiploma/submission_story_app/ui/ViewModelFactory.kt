@@ -11,15 +11,11 @@ class ViewModelFactory(private val userPreferences: UserPreferences) : ViewModel
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(WelcomeViewModel::class.java) -> {
-                WelcomeViewModel(userPreferences) as T
-            }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(userPreferences) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
-
     }
 
 }
