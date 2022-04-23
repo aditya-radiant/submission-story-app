@@ -3,8 +3,6 @@ package com.dicoding.picodiploma.submission_story_app.ui.story
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.EXTRA_USER
-import android.nfc.NfcAdapter.EXTRA_DATA
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
@@ -19,14 +17,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.data.response.ListStoryItem
-import com.dicoding.picodiploma.submission_story_app.ui.adapter.StoryAdapter
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivityStoryBinding
+import com.dicoding.picodiploma.submission_story_app.ui.adapter.StoryAdapter
 import com.dicoding.picodiploma.submission_story_app.model.UserModel
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.ViewModelFactory
 import com.dicoding.picodiploma.submission_story_app.ui.detail.DetailStoryActivity
 import com.dicoding.picodiploma.submission_story_app.ui.login.LoginActivity
 import com.dicoding.picodiploma.submission_story_app.ui.login.LoginViewModel
+import com.dicoding.picodiploma.submission_story_app.ui.postStory.PostStoryActivity
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "token")
 class StoryActivity : AppCompatActivity() {
@@ -81,6 +80,12 @@ class StoryActivity : AppCompatActivity() {
                 }
             }
         })
+
+        binding.addStory.setOnClickListener{
+            val intent = Intent(this, PostStoryActivity::class.java)
+            intent.putExtra(PostStoryActivity.EXTRA_DATA, user)
+            startActivity(intent)
+        }
 
     }
 

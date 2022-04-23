@@ -6,8 +6,7 @@ import com.dicoding.picodiploma.submission_story_app.data.api.ApiConfig
 import com.dicoding.picodiploma.submission_story_app.data.response.LoginResponse
 import com.dicoding.picodiploma.submission_story_app.model.UserModel
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
-import com.dicoding.picodiploma.submission_story_app.ui.Helper
-import kotlinx.coroutines.Dispatchers
+import com.dicoding.picodiploma.submission_story_app.ui.Utils
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.json.JSONTokener
@@ -20,7 +19,12 @@ class LoginViewModel(private val userPreferences: UserPreferences): ViewModel() 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun login(email: String, pass: String, callback: Helper.ApiCallbackString){
+    companion object {
+        private const val TAG = "LoginViewModel"
+        private const val SUCCESS = "success"
+    }
+
+    fun login(email: String, pass: String, callback: Utils.ApiCallbackString){
         _isLoading.value = true
 
         val service = ApiConfig().getApiService().login(email, pass)
@@ -79,9 +83,5 @@ class LoginViewModel(private val userPreferences: UserPreferences): ViewModel() 
         }
     }
 
-    companion object {
-        private const val TAG = "SignInViewModel"
-        private const val SUCCESS = "success"
-    }
 }
 

@@ -37,7 +37,7 @@ interface ApiService{
     fun postStory(
         @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,
-        @Part("description") description: RequestBody,
+        @Part("description") description: String,
     ): Call<AddStoryResponse>
 
 }

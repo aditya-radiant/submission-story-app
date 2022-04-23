@@ -23,5 +23,14 @@
     <string name="picture">Picture</string>
     <string name="user_name">User Name</string>
     <string name="Description">Description</string>
+    <string name="story_picture">picture here</string>
+    <string name="write_caption">Write your caption here!</string>
+    <string name="upload_story">UPLOAD STORY</string>
+    <string name="Open_Camera">CAMERA</string>
+    <string name="Gallery">GALLERY</string>
+    <string name="input_file_first">Input File First!!!</string>
+    <string name="success">Success</string>
+    <string name="failed">failed</string>
+    <string name="post_story">Post Story</string>
 
 </resources>

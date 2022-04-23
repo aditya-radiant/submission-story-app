@@ -24,4 +24,17 @@
         android:indeterminateDrawable="@drawable/prog_bar"
         android:progress="0"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_story"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="@string/post_story"
+        android:src="@drawable/ic_story"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

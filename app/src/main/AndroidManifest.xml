@@ -3,6 +3,13 @@
     package="com.dicoding.picodiploma.submission_story_app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
@@ -12,10 +19,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Submissionstoryapp">
         <activity
+            android:name=".ui.camera.CameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.postStory.PostStoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.detail.DetailStoryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.welcome.WelcomeActivity"
+            android:name=".ui.slashScreen.SplashScreenActivity"
             android:exported="true" />
         <activity
             android:name=".ui.story.StoryActivity"

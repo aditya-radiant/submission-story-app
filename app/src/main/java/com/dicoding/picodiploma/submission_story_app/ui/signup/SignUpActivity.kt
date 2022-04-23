@@ -10,8 +10,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivitySignUpBinding
-import com.dicoding.picodiploma.submission_story_app.model.UserModel
-import com.dicoding.picodiploma.submission_story_app.ui.Helper
+import com.dicoding.picodiploma.submission_story_app.ui.Utils
 import com.dicoding.picodiploma.submission_story_app.ui.login.LoginActivity
 
 class SignUpActivity : AppCompatActivity() {
@@ -60,7 +59,7 @@ class SignUpActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
 
-            singUpViewModel.register(name, email, password, object : Helper.ApiCallbackString {
+            singUpViewModel.register(name, email, password, object : Utils.ApiCallbackString {
                 override fun onResponse(success: Boolean, message: String) {
                     showAlertDialog(success, message)
                 }

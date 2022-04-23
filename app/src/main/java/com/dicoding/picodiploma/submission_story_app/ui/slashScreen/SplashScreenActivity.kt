@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.submission_story_app.ui.welcome
+package com.dicoding.picodiploma.submission_story_app.ui.slashScreen
 
 
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +13,6 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_slashscreen)
         supportActionBar?.hide()
-
     }
 
 }

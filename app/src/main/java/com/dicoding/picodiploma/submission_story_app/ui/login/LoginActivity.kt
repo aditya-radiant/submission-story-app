@@ -17,7 +17,7 @@ import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivityLoginBinding
 import com.dicoding.picodiploma.submission_story_app.model.UserModel
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
-import com.dicoding.picodiploma.submission_story_app.ui.Helper
+import com.dicoding.picodiploma.submission_story_app.ui.Utils
 import com.dicoding.picodiploma.submission_story_app.ui.ViewModelFactory
 import com.dicoding.picodiploma.submission_story_app.ui.signup.SignUpActivity
 import com.dicoding.picodiploma.submission_story_app.ui.story.StoryActivity
@@ -28,11 +28,8 @@ class LoginActivity : AppCompatActivity() {
     private val binding: ActivityLoginBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
-
     private lateinit var user: UserModel
-
     private lateinit var loginViewModel: LoginViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,7 +128,7 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEditText.text.toString()
             val pass = binding.passwordEditText.text.toString()
 
-            loginViewModel.login(email, pass, object : Helper.ApiCallbackString {
+            loginViewModel.login(email, pass, object : Utils.ApiCallbackString {
                 override fun onResponse(success: Boolean,message: String) {
                     showAlertDialog(success, message)
                 }

@@ -1,17 +1,13 @@
 package com.dicoding.picodiploma.submission_story_app.ui.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.picodiploma.submission_story_app.R
-import com.dicoding.picodiploma.submission_story_app.data.repository.StoryRepository
+import com.dicoding.picodiploma.submission_story_app.data.repository.DiffCallBack
 import com.dicoding.picodiploma.submission_story_app.data.response.ListStoryItem
 import com.dicoding.picodiploma.submission_story_app.databinding.StoryItemBinding
-import com.dicoding.picodiploma.submission_story_app.ui.Helper
-import com.dicoding.picodiploma.submission_story_app.ui.detail.DetailStoryActivity
 
 
 class StoryAdapter: RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {
@@ -23,7 +19,7 @@ class StoryAdapter: RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {
     }
 
     fun setListStory(itemStory: List<ListStoryItem>) {
-        val diffCallback = StoryRepository(this.listStory, itemStory)
+        val diffCallback = DiffCallBack(this.listStory, itemStory)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 
         this.listStory.clear()
@@ -41,11 +37,6 @@ class StoryAdapter: RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {
                 .into(v.imgPost)
             v.tvUserName.text = item.name
             v.tvCaption.text = item.description
-/*            v.imgPost.setOnClickListener {
-                val intent = Intent(it.context, DetailStoryActivity::class.java)
-                intent.putExtra(DetailStoryActivity.EXTRA_STORY, item)
-                it.context.startActivity(intent)
-            }*/
         }
     }
 

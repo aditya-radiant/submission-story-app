@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.dicoding.picodiploma.submission_story_app.data.api.ApiConfig
 import com.dicoding.picodiploma.submission_story_app.data.response.ListStoryItem
 import com.dicoding.picodiploma.submission_story_app.data.response.StoriesResponse
-import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
-import com.dicoding.picodiploma.submission_story_app.ui.Event
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

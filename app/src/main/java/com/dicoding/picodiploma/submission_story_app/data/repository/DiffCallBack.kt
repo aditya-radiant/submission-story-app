@@ -3,8 +3,8 @@ package com.dicoding.picodiploma.submission_story_app.data.repository
 import androidx.recyclerview.widget.DiffUtil
 import com.dicoding.picodiploma.submission_story_app.data.response.ListStoryItem
 
-class StoryRepository(private val mOldFavList: List<ListStoryItem>,
-                      private val mNewFavList: List<ListStoryItem>
+class DiffCallBack(private val mOldFavList: List<ListStoryItem>,
+                   private val mNewFavList: List<ListStoryItem>
                           ): DiffUtil.Callback() {
     override fun getOldListSize() = mOldFavList.size
 

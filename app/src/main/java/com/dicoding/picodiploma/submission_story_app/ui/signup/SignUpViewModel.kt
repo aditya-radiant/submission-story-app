@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.picodiploma.submission_story_app.data.api.ApiConfig
 import com.dicoding.picodiploma.submission_story_app.data.response.RegisterResponse
-import com.dicoding.picodiploma.submission_story_app.ui.Helper
+import com.dicoding.picodiploma.submission_story_app.ui.Utils
 import org.json.JSONObject
 import org.json.JSONTokener
 import retrofit2.Call
@@ -22,7 +22,7 @@ class SignUpViewModel: ViewModel() {
         private const val SUCCESS = "success"
     }
 
-    fun register(name: String, email: String, pass: String, callback: Helper.ApiCallbackString){
+    fun register(name: String, email: String, pass: String, callback: Utils.ApiCallbackString){
         _isLoading.value = true
 
         val service = ApiConfig().getApiService().register(name, email, pass)
@@ -39,8 +39,6 @@ class SignUpViewModel: ViewModel() {
 
                 } else {
                     Log.e(TAG, "onFailure1: ${response.message()}")
-
-                    // get message error
                     val jsonObject = JSONTokener(response.errorBody()!!.string()).nextValue() as JSONObject
                     val message = jsonObject.getString("message")
                     callback.onResponse(false, message)

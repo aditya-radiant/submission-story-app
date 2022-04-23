@@ -18,7 +18,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-object Helper {
+object Utils {
     private const val FILENAME_FORMAT = "dd-MMM-yyyy"
 
     private val timeStamp: String = SimpleDateFormat(
@@ -121,6 +121,7 @@ object Helper {
 
 }
 
+/*
 open class Event<out T>(private val content: T) {
 
     @Suppress("MemberVisibilityCanBePrivate")
@@ -135,4 +136,4 @@ open class Event<out T>(private val content: T) {
             content
         }
     }
-}
+}*/
