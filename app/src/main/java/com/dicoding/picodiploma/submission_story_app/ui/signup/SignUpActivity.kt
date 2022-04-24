@@ -112,7 +112,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         AnimatorSet().apply {
-            playSequentially(name, nameEdit, email, emailEdit, password, passwordEdit,together, register, login)
+            playSequentially(name, nameEdit, email, emailEdit, password, passwordEdit, register,together, login)
             startDelay = 500
         }.start()
     }
