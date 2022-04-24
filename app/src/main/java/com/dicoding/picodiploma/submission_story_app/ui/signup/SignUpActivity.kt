@@ -1,5 +1,7 @@
 package com.dicoding.picodiploma.submission_story_app.ui.signup
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -28,11 +30,13 @@ class SignUpActivity : AppCompatActivity() {
         singUpViewModel = SignUpViewModel()
 
         supportActionBar?.title = getString(R.string.sign_up)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         singUpViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
+        playAnimation()
         buttonListener()
     }
 
@@ -83,6 +87,29 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
+    }
+
+    private fun playAnimation() {
+        val name = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(500)
+        val nameEdit = ObjectAnimator.ofFloat(binding.nameEditText, View.ALPHA, 1f).setDuration(500)
+        val email = ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(500)
+        val emailEdit = ObjectAnimator.ofFloat(binding.emailEditText, View.ALPHA, 1f).setDuration(500)
+        val password = ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(500)
+        val passwordEdit= ObjectAnimator.ofFloat(binding.passwordEditText, View.ALPHA, 1f).setDuration(500)
+        val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(500)
+        val register = ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(500)
+        val line1 = ObjectAnimator.ofFloat(binding.line1, View.ALPHA, 1f).setDuration(500)
+        val line2 = ObjectAnimator.ofFloat(binding.line2, View.ALPHA, 1f).setDuration(500)
+        val haveAcc = ObjectAnimator.ofFloat(binding.tvHaveAccount, View.ALPHA, 1f).setDuration(500)
+
+        val together = AnimatorSet().apply {
+            playTogether(line1, line2, haveAcc)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(name, nameEdit, email, emailEdit, password, passwordEdit,together, register, login)
+            startDelay = 500
+        }.start()
     }
 
     private fun showLoading(isLoading: Boolean) {

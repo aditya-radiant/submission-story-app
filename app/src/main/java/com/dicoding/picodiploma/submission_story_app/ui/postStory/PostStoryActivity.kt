@@ -72,6 +72,7 @@ class PostStoryActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.title = getString(R.string.post_story)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel.isLoading.observe(this) {
             showLoading(it)
@@ -91,6 +92,11 @@ class PostStoryActivity : AppCompatActivity() {
         binding.galleryBtn.setOnClickListener { startGallery() }
         binding.btnPost.setOnClickListener { uploadImage() }
 
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun startCameraX() {
@@ -147,37 +153,25 @@ class PostStoryActivity : AppCompatActivity() {
             )
             viewModel.uploadImage(login, desReqBody, imageMultipart, object : Utils.ApiCallbackString {
                 override fun onResponse(success: Boolean, message: String) {
-                    showAlertDialog(success, message)
+                    if (!success){
+                        AlertDialog.Builder(this@PostStoryActivity).apply {
+                            setTitle(getString(R.string.information))
+                            setMessage(getString(R.string.failed) + ", $message")
+                            setPositiveButton(getString(R.string.continue_)) { _, _ ->
+                                binding.progressBar.visibility = View.GONE
+                            }
+                            create()
+                            show()
+                        }
+                    }
+                    else{
+                        Toast.makeText(this@PostStoryActivity, getString(R.string.success), Toast.LENGTH_SHORT).show()
+                    }
                 }
             })
 
         } else {
             Utils.showToast(this@PostStoryActivity, getString(R.string.input_file_first))
-        }
-    }
-
-    private fun showAlertDialog(param: Boolean, message: String) {
-        if (param) {
-            AlertDialog.Builder(this).apply {
-                setTitle(getString(R.string.information))
-                setMessage(getString(R.string.success))
-                setPositiveButton(getString(R.string.continue_)) { _, _ ->
-                    // Do nothing
-                }
-                finish()
-                create()
-                show()
-            }
-        } else {
-            AlertDialog.Builder(this).apply {
-                setTitle(getString(R.string.information))
-                setMessage(getString(R.string.failed) + ", $message")
-                setPositiveButton(getString(R.string.continue_)) { _, _ ->
-                    binding.progressBar.visibility = View.GONE
-                }
-                create()
-                show()
-            }
         }
     }
 

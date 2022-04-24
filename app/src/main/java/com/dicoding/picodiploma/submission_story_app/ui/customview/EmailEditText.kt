@@ -9,13 +9,9 @@ import android.util.AttributeSet
 import android.util.Patterns
 import android.view.MotionEvent
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.dicoding.picodiploma.submission_story_app.R
 import com.google.android.material.textfield.TextInputEditText
-import java.util.*
-import kotlin.concurrent.timerTask
 
 class EmailEditText: TextInputEditText, View.OnTouchListener {
     private val roundedBackground =

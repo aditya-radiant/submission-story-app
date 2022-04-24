@@ -48,8 +48,6 @@ class PostStoryViewModel: ViewModel(){
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
-
-                    // get message error
                     val jsonObject = JSONTokener(response.errorBody()!!.string()).nextValue() as JSONObject
                     val message = jsonObject.getString("message")
                     callback.onResponse(false, message)

@@ -72,9 +72,9 @@ class StoryActivity : AppCompatActivity() {
 
         adapter.setOnItemClickCallback(object : StoryAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ListStoryItem) {
+
                 Intent(this@StoryActivity, DetailStoryActivity::class.java).also {
                     it.putExtra(DetailStoryActivity.EXTRA_STORY, data)
-                    startActivity(it)
                 }
             }
         })

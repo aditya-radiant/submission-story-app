@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/yellow_1"
     tools:context=".ui.detail.DetailStoryActivity">
 
     <ImageView
@@ -24,6 +25,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/user_name"
+        style="@style/TextTitle.bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_post" />
@@ -37,6 +39,7 @@
         android:ellipsize="end"
         android:maxLines="3"
         android:text="@string/Description"
+        style="@style/TextTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />

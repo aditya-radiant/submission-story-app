@@ -36,5 +36,7 @@
     <string name="password_min">Password Minimum 6 Characters</string>
     <string name="fill_the_name">Name can\'t be empty</string>
     <string name="fill_your_password">Fill your password</string>
+    <string name="hello">Hello, come and let\'s join our journey</string>
+    <string name="detail_story">Detail Story</string>
 
 </resources>

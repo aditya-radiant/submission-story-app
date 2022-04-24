@@ -12,6 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/explode</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
     </style>
 
     <style name="ElevatedCardView">
@@ -23,17 +26,20 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/yellow_1</item>
 
     </style>
 
     <style name="TextTitle.bold">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/brown_1</item>
     </style>
 
     <style name="TextTitle.item">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/yellow_1</item>
     </style>
 
     <style name="TextTitle.Tiny">
@@ -58,5 +64,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
     </style>
+
+
 
 </resources>
