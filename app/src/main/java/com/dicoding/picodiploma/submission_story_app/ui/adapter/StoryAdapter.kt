@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.picodiploma.submission_story_app.data.repository.DiffCallBack
+import com.dicoding.picodiploma.submission_story_app.data.helper.DiffCallBack
 import com.dicoding.picodiploma.submission_story_app.data.response.ListStoryItem
 import com.dicoding.picodiploma.submission_story_app.databinding.StoryItemBinding
 

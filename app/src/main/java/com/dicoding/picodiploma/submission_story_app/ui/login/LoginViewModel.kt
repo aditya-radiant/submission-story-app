@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.dicoding.picodiploma.submission_story_app.data.api.ApiConfig
 import com.dicoding.picodiploma.submission_story_app.data.response.LoginResponse
-import com.dicoding.picodiploma.submission_story_app.model.UserModel
+import com.dicoding.picodiploma.submission_story_app.model.LoginModel
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.Utils
 import kotlinx.coroutines.launch
@@ -39,7 +39,7 @@ class LoginViewModel(private val userPreferences: UserPreferences): ViewModel() 
 
                         callback.onResponse(response.body() != null, SUCCESS)
 
-                        val model = UserModel(
+                        val model = LoginModel(
                             responseBody.loginResult.name,
                             email,
                             pass,
@@ -52,7 +52,6 @@ class LoginViewModel(private val userPreferences: UserPreferences): ViewModel() 
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
 
-                    // get message error
                     val jsonObject = JSONTokener(response.errorBody()!!.string()).nextValue() as JSONObject
                     val message = jsonObject.getString("message")
                     callback.onResponse(false, message)
@@ -67,14 +66,14 @@ class LoginViewModel(private val userPreferences: UserPreferences): ViewModel() 
         })
     }
 
-    fun saveUser(user: UserModel) {
+    fun saveUser(login: LoginModel) {
         viewModelScope.launch {
-            userPreferences.saveUser(user)
+            userPreferences.setToken(login)
         }
     }
 
-    fun getUser(): LiveData<UserModel> {
-        return userPreferences.getUser().asLiveData()
+    fun checkSession(): LiveData<LoginModel> {
+        return userPreferences.isFirstTime().asLiveData()
     }
 
     fun logout() {

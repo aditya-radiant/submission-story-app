@@ -22,7 +22,7 @@ class StoryViewModel: ViewModel() {
     val isHaveData: LiveData<Boolean> = _isHaveData
 
     companion object {
-        private const val TAG = "ListStoryViewModel"
+        private const val TAG = "StoryViewModel"
     }
 
     fun showListStory(token: String) {

@@ -61,7 +61,21 @@ class SignUpActivity : AppCompatActivity() {
 
             singUpViewModel.register(name, email, password, object : Utils.ApiCallbackString {
                 override fun onResponse(success: Boolean, message: String) {
-                    showAlertDialog(success, message)
+                    if (success){
+                        val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
+                    }
+                    AlertDialog.Builder(this@SignUpActivity).apply {
+                        setTitle(getString(R.string.information))
+                        setMessage(getString(R.string.login_failed)+", $message")
+                        setPositiveButton(getString(R.string.continue_)) { _, _ ->
+                            showLoading(false)
+                        }
+                        create()
+                        show()
+                    }
                 }
             })
         }
@@ -69,33 +83,6 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-    }
-
-    private fun showAlertDialog(param: Boolean, message: String) {
-        if (param) {
-            AlertDialog.Builder(this).apply {
-                setTitle(getString(R.string.information))
-                setMessage(getString(R.string.login_success))
-                setPositiveButton(getString(R.string.continue_)) { _, _ ->
-                    val intent = Intent(context, LoginActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
-                }
-                create()
-                show()
-            }
-        } else {
-            AlertDialog.Builder(this).apply {
-                setTitle(getString(R.string.information))
-                setMessage(getString(R.string.login_failed)+", $message")
-                setPositiveButton(getString(R.string.continue_)) { _, _ ->
-                    binding.progressBar.visibility = View.GONE
-                }
-                create()
-                show()
-            }
-        }
     }
 
     private fun showLoading(isLoading: Boolean) {

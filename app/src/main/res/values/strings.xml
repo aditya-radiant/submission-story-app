@@ -4,7 +4,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="fill_the_email">Fill the email!!</string>
+    <string name="fill_the_email">Email Cannot Empty</string>
     <string name="pw_lg_minimum">Password minimum 6 characters</string>
     <string name="locale">Local</string>
     <string name="login_success">Login Success</string>
@@ -32,5 +32,9 @@
     <string name="success">Success</string>
     <string name="failed">failed</string>
     <string name="post_story">Post Story</string>
+    <string name="email_not_valid">Email not valid</string>
+    <string name="password_min">Password Minimum 6 Characters</string>
+    <string name="fill_the_name">Name can\'t be empty</string>
+    <string name="fill_your_password">Fill your password</string>
 
 </resources>

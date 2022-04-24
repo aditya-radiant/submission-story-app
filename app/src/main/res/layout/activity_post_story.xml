@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/ic_place_holder"/>
 
 
     <EditText
@@ -34,7 +34,7 @@
         android:ems="10"
         android:gravity="start|top"
         android:hint="@string/write_caption"
-        android:inputType="textMultiLine|textPersonName"
+        android:inputType="textMultiLine"
         android:padding="16dp"
         android:paddingBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,6 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:indeterminateDrawable="@drawable/prog_bar"
+        android:visibility="invisible"
         android:progress="0"/>
 
     <Button

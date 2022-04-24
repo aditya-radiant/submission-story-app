@@ -50,5 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:indeterminateDrawable="@drawable/prog_bar"
+        android:visibility="invisible"
         android:progress="0"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

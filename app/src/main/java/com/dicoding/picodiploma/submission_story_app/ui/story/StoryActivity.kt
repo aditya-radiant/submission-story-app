@@ -19,7 +19,7 @@ import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.data.response.ListStoryItem
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivityStoryBinding
 import com.dicoding.picodiploma.submission_story_app.ui.adapter.StoryAdapter
-import com.dicoding.picodiploma.submission_story_app.model.UserModel
+import com.dicoding.picodiploma.submission_story_app.model.LoginModel
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.ViewModelFactory
 import com.dicoding.picodiploma.submission_story_app.ui.detail.DetailStoryActivity
@@ -31,7 +31,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class StoryActivity : AppCompatActivity() {
     private val storyViewModel: StoryViewModel by viewModels()
     private lateinit var adapter: StoryAdapter
-    private lateinit var user: UserModel
+    private lateinit var login: LoginModel
 
 
     private val binding: ActivityStoryBinding by lazy {
@@ -57,9 +57,7 @@ class StoryActivity : AppCompatActivity() {
             showHaveDataOrNot(it)
         }
 
-        user = intent.getParcelableExtra(USER_DATA)!!
-
-
+        login = intent.getParcelableExtra(USER_DATA)!!
 
         setListStory()
 
@@ -83,7 +81,7 @@ class StoryActivity : AppCompatActivity() {
 
         binding.addStory.setOnClickListener{
             val intent = Intent(this, PostStoryActivity::class.java)
-            intent.putExtra(PostStoryActivity.EXTRA_DATA, user)
+            intent.putExtra(PostStoryActivity.EXTRA_DATA, login)
             startActivity(intent)
         }
 
@@ -115,7 +113,7 @@ class StoryActivity : AppCompatActivity() {
     }
 
     private fun setListStory() {
-        storyViewModel.showListStory(user.token)
+        storyViewModel.showListStory(login.token)
         storyViewModel.itemStory.observe(this) {
             adapter.setListStory(it)
         }

@@ -6,9 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dicoding.picodiploma.submission_story_app.data.api.ApiConfig
 import com.dicoding.picodiploma.submission_story_app.data.response.AddStoryResponse
-import com.dicoding.picodiploma.submission_story_app.model.UserModel
+import com.dicoding.picodiploma.submission_story_app.model.LoginModel
 import com.dicoding.picodiploma.submission_story_app.ui.Utils
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONObject
 import org.json.JSONTokener
 import retrofit2.Call
@@ -17,21 +18,23 @@ import retrofit2.Response
 
 class PostStoryViewModel: ViewModel(){
     companion object {
-        private const val TAG = "AddStoryViewModel"
+        private const val TAG = "PostStoryViewModel"
         private const val SUCCESS = "success"
+
     }
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+
     fun uploadImage(
-        user: UserModel,
-        description: String,
+        login: LoginModel,
+        description: RequestBody,
         imageMultipart: MultipartBody.Part,
         callback: Utils.ApiCallbackString
     ) {
         _isLoading.value = true
-        val service = ApiConfig().getApiService().postStory("Bearer ${user.token}", imageMultipart, description)
+        val service = ApiConfig().getApiService().postStory("Bearer ${login.token}", imageMultipart, description)
 
         service.enqueue(object : Callback<AddStoryResponse> {
             override fun onResponse(

@@ -110,9 +110,6 @@ object Utils {
         ).show()
     }
 
-    fun isEmailValid(email: CharSequence): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
 
     interface ApiCallbackString {
         fun onResponse(success: Boolean, message: String)
@@ -121,19 +118,3 @@ object Utils {
 
 }
 
-/*
-open class Event<out T>(private val content: T) {
-
-    @Suppress("MemberVisibilityCanBePrivate")
-    var hasBeenHandled = false
-        private set
-
-    fun getContentIfNotHandled(): T? {
-        return if (hasBeenHandled) {
-            null
-        } else {
-            hasBeenHandled = true
-            content
-        }
-    }
-}*/

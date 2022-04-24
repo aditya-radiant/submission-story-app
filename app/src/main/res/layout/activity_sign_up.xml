@@ -18,8 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nameEditTextLayout"
+    <com.dicoding.picodiploma.submission_story_app.ui.customview.NameEditText
+        android:id="@+id/nameEditText"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -29,17 +29,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView"
-        app:startIconDrawable="@drawable/ic_profile">
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:hint="@string/fill_name"
+        app:startIconDrawable="@drawable/ic_profile"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            tools:ignore="SpeakableTextPresentCheck"
-            android:hint="@string/fill_name"/>
-    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/emailTextView"
@@ -51,10 +46,10 @@
         android:text="@string/email"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditTextLayout"/>
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailEditTextLayout"
+    <com.dicoding.picodiploma.submission_story_app.ui.customview.EmailEditText
+        android:id="@+id/emailEditText"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -64,17 +59,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailTextView"
-        app:startIconDrawable="@drawable/ic_email">
+        app:startIconDrawable="@drawable/ic_email"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:hint="@string/fill_email"
+        />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            tools:ignore="SpeakableTextPresentCheck"
-            android:hint="@string/fill_email"/>
-    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/passwordTextView"
@@ -86,10 +77,10 @@
         android:text="@string/password"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailEditTextLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordEditTextLayout"
+    <com.dicoding.picodiploma.submission_story_app.ui.customview.PasswordEditText
+        android:id="@+id/passwordEditText"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -99,19 +90,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordTextView"
-        app:passwordToggleEnabled="true"
-        app:startIconDrawable="@drawable/ic_lock">
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="@string/fill_your_password"
+        tools:ignore="SpeakableTextPresentCheck"
+        />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            app:passwordToggleEnabled="true"
-            tools:ignore="SpeakableTextPresentCheck"
-            android:hint="@string/pw_lg_minimum"/>
-    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/registerButton"
@@ -121,12 +106,12 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:alpha="1"
-        android:backgroundTint="#009688"
+        android:backgroundTint="@color/red_light"
         android:text="@string/register"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -183,7 +168,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:alpha="1"
-        android:backgroundTint="#009688"
+        android:backgroundTint="@color/yellow_1"
         android:text="@string/login"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

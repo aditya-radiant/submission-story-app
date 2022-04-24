@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -15,7 +17,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.picodiploma.submission_story_app.R
 import com.dicoding.picodiploma.submission_story_app.databinding.ActivityLoginBinding
-import com.dicoding.picodiploma.submission_story_app.model.UserModel
+import com.dicoding.picodiploma.submission_story_app.model.LoginModel
 import com.dicoding.picodiploma.submission_story_app.model.UserPreferences
 import com.dicoding.picodiploma.submission_story_app.ui.Utils
 import com.dicoding.picodiploma.submission_story_app.ui.ViewModelFactory
@@ -28,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private val binding: ActivityLoginBinding by lazy {
         ActivityLoginBinding.inflate(layoutInflater)
     }
-    private lateinit var user: UserModel
+    private lateinit var login: LoginModel
     private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,26 +38,40 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.title = getString(R.string.login)
 
-        setupViewModel()
+        loginViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(UserPreferences.getInstance(dataStore))
+        )[LoginViewModel::class.java]
 
         loginViewModel.isLoading.observe(this) {
             showLoading(it)
         }
+        //Custom View
+        binding.emailEditText.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                setMyButtonEnable()
+            }
 
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
+
+        //Start
         buttonListener()
     }
 
     override fun onResume() {
         super.onResume()
-        initialCheck()
-
+        isSessionValid()
     }
 
-
-    private fun initialCheck() {
-        loginViewModel.getUser().observe(this) {
-            user = UserModel(
+    private fun isSessionValid() {
+        loginViewModel.checkSession().observe(this) {
+            login = LoginModel(
                 it.name,
                 it.email,
                 it.password,
@@ -66,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
 
             if (it.isLogin) {
                 val intent = Intent(this, StoryActivity::class.java)
-                intent.putExtra(StoryActivity.USER_DATA, user)
+                intent.putExtra(StoryActivity.USER_DATA, login)
                 startActivity(intent)
                 finish()
             }
@@ -88,41 +104,6 @@ class LoginActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setupViewModel() {
-        loginViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(UserPreferences.getInstance(dataStore))
-        )[LoginViewModel::class.java]
-    }
-
-    private fun showAlertDialog(param: Boolean, message: String) {
-        if (param) {
-            AlertDialog.Builder(this).apply {
-                setTitle(getString(R.string.information))
-                setMessage(getString(R.string.login_success))
-                setPositiveButton(getString(R.string.continue_)) { _, _ ->
-                    val intent = Intent(context, StoryActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
-                }
-                create()
-                show()
-            }
-        } else {
-            AlertDialog.Builder(this).apply {
-                setTitle(getString(R.string.information))
-                setMessage(getString(R.string.login_failed) +", $message")
-                setPositiveButton(getString(R.string.continue_)) { _, _ ->
-                    showLoading(false)
-                }
-                create()
-                show()
-
-            }
-        }
-    }
-
     private fun buttonListener() {
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text.toString()
@@ -130,7 +111,13 @@ class LoginActivity : AppCompatActivity() {
 
             loginViewModel.login(email, pass, object : Utils.ApiCallbackString {
                 override fun onResponse(success: Boolean,message: String) {
-                    showAlertDialog(success, message)
+                    if (success) {
+                        isSessionValid()
+                    }
+                    else{
+                        Toast.makeText(this@LoginActivity,message,Toast.LENGTH_SHORT).show()
+                        showLoading(false)
+                    }
                 }
             })
         }
@@ -139,11 +126,15 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun setMyButtonEnable() {
+        val result = binding.emailEditText.text
+        binding.loginButton.isEnabled = result != null && result.toString().isNotEmpty()
     }
 
 }
