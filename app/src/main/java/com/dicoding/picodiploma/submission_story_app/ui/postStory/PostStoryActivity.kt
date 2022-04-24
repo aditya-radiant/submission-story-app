@@ -20,6 +20,7 @@ import com.dicoding.picodiploma.submission_story_app.databinding.ActivityPostSto
 import com.dicoding.picodiploma.submission_story_app.model.LoginModel
 import com.dicoding.picodiploma.submission_story_app.ui.Utils
 import com.dicoding.picodiploma.submission_story_app.ui.camera.CameraActivity
+import com.dicoding.picodiploma.submission_story_app.ui.story.StoryActivity
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -166,10 +167,10 @@ class PostStoryActivity : AppCompatActivity() {
                     }
                     else{
                         Toast.makeText(this@PostStoryActivity, getString(R.string.success), Toast.LENGTH_SHORT).show()
+                        finish()
                     }
                 }
             })
-
         } else {
             Utils.showToast(this@PostStoryActivity, getString(R.string.input_file_first))
         }

@@ -26,7 +26,6 @@ class PostStoryViewModel: ViewModel(){
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-
     fun uploadImage(
         login: LoginModel,
         description: RequestBody,
@@ -59,6 +58,5 @@ class PostStoryViewModel: ViewModel(){
                 callback.onResponse(false, t.message.toString())
             }
         })
-
     }
 }

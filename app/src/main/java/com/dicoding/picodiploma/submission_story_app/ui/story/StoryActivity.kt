@@ -33,7 +33,6 @@ class StoryActivity : AppCompatActivity() {
     private lateinit var adapter: StoryAdapter
     private lateinit var login: LoginModel
 
-
     private val binding: ActivityStoryBinding by lazy {
         ActivityStoryBinding.inflate(layoutInflater)
     }
@@ -48,6 +47,8 @@ class StoryActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.title = getString(R.string.story)
 
+        adapter = StoryAdapter()
+        adapter.notifyDataSetChanged()
 
         storyViewModel.isLoading.observe(this) {
             showLoading(it)
@@ -61,9 +62,6 @@ class StoryActivity : AppCompatActivity() {
 
         setListStory()
 
-        adapter = StoryAdapter()
-        adapter.notifyDataSetChanged()
-
         binding.apply {
             rvUserStory.layoutManager = LinearLayoutManager(this@StoryActivity)
             rvUserStory.adapter = adapter
@@ -72,9 +70,9 @@ class StoryActivity : AppCompatActivity() {
 
         adapter.setOnItemClickCallback(object : StoryAdapter.OnItemClickCallback {
             override fun onItemClicked(data: ListStoryItem) {
-
                 Intent(this@StoryActivity, DetailStoryActivity::class.java).also {
                     it.putExtra(DetailStoryActivity.EXTRA_STORY, data)
+                    startActivity(it)
                 }
             }
         })
@@ -127,6 +125,5 @@ class StoryActivity : AppCompatActivity() {
         binding.rvUserStory.visibility = if (isHaveData) View.VISIBLE else View.GONE
 
     }
-
 
 }

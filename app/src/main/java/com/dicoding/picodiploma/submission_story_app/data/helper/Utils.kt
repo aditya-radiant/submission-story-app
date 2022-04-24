@@ -115,6 +115,5 @@ object Utils {
         fun onResponse(success: Boolean, message: String)
     }
 
-
 }
 

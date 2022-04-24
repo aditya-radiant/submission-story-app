@@ -31,8 +31,6 @@ class StoryViewModel: ViewModel() {
         val service = ApiConfig()
             .getApiService()
             .getStories("Bearer $token")
-
-
         service.enqueue(object : Callback<StoriesResponse> {
             override fun onResponse(
                 call: Call<StoriesResponse>,

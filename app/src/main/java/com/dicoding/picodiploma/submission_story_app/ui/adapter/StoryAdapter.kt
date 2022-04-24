@@ -55,6 +55,4 @@ class StoryAdapter: RecyclerView.Adapter<StoryAdapter.StoryViewHolder>() {
     }
 
 
-
-
 }
